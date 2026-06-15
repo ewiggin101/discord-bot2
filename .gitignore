@@ -1,0 +1,7 @@
+.env
+channel_registry.json
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*:Zone.Identifier
