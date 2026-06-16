@@ -70,6 +70,11 @@ class Config:
         },
     }
 
+    # ── Active Languages ─────────────────────────────────────────────────────
+    # Remove a code from this set to disable that language without touching
+    # any other code. The bot will ignore channels registered for that language.
+    ACTIVE_LANGUAGES = {"en", "ko", "es"} # "fr" "pt" disabled
+
     # ── Bot Settings ──────────────────────────────────────────────────────────
     MAX_MESSAGE_LENGTH = 1900   # Discord limit is 2000; leave headroom for embed
     TRANSLATION_TIMEOUT = 10    # Seconds before a translation API call times out

@@ -11,6 +11,7 @@ import json
 import logging
 import os
 from typing import Dict, Optional
+from config import Config
 
 log = logging.getLogger("ChannelManager")
 
@@ -79,6 +80,7 @@ class ChannelManager:
                 info["guild_id"] == guild_id
                 and info["type"] == channel_type
                 and info["lang"] != source_lang
+                and info["lang"] in Config.ACTIVE_LANGUAGES
             ):
                 targets[info["lang"]] = ch_id
         return targets

@@ -5,6 +5,10 @@ Supports: English, Korean, Spanish, French, Portuguese
 - All other pairs : DeepL (best European/Romance language quality)
 """
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 import discord
 from discord.ext import commands
 import asyncio
@@ -310,9 +314,6 @@ async def show_help(ctx):
 
 # ── Entry Point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    import os
-    from dotenv import load_dotenv
-    load_dotenv()
     token = os.getenv("DISCORD_TOKEN")
     if not token:
         raise ValueError("DISCORD_TOKEN not set in .env file")

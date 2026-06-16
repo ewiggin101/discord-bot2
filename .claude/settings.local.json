@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" status)",
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" diff HEAD)",
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" add .env.example README.md config.py requirements.txt translator.py)",
+      "Bash(git -C //wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot commit -m ' *)",
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" config user.email \"dmyoung84@gmail.com\")",
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" config user.name \"ewiggin101\")",
+      "Bash(git -C \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot\" push origin main)",
+      "Bash(ls \"//wsl.localhost/ubuntu-24.04/home/myoung/github-personal/discord-translator-bot/.env\" 2>/dev/null && echo \"exists\" || echo \"not found\")"
+    ]
+  }
+}
