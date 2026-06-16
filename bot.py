@@ -1,19 +1,14 @@
 """
 Multi-Language Discord Translation Bot
 Supports: English, Korean, Spanish, French, Portuguese
-- Korean <-> * : Papago (best Korean quality)
-- All other pairs : DeepL (best European/Romance language quality)
 """
-
-import os
-from dotenv import load_dotenv
-load_dotenv()
 
 import discord
 from discord.ext import commands
 import asyncio
 import logging
 from config import Config
+from secrets import load_secrets
 from translator import TranslationService
 from channel_manager import ChannelManager
 
@@ -32,7 +27,10 @@ intents.reactions = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-translator = TranslationService()
+# ── Secrets ───────────────────────────────────────────────────────────────────
+_secrets = load_secrets()
+
+translator = TranslationService(_secrets["DEEPL_API_KEY"])
 channel_manager = ChannelManager()
 
 # ── Events ────────────────────────────────────────────────────────────────────
@@ -319,7 +317,4 @@ async def show_help(ctx):
 
 # ── Entry Point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    token = os.getenv("DISCORD_TOKEN")
-    if not token:
-        raise ValueError("DISCORD_TOKEN not set in .env file")
-    bot.run(token)
+    bot.run(_secrets["DISCORD_TOKEN"])
