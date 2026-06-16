@@ -53,6 +53,11 @@ async def on_message(message: discord.Message):
     if message.author.bot:
         return
 
+    # Ignore bot commands
+    if message.content.startswith(bot.command_prefix):
+        await bot.process_commands(message)
+        return
+
     # Check if this message is in a watched translation channel
     channel_info = channel_manager.get_channel_info(message.channel.id)
     if not channel_info:

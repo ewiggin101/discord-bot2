@@ -45,7 +45,7 @@ class TranslationService:
 
         try:
             deepl_target = Config.DEEPL_LANG_CODES.get(target_lang, target_lang.upper())
-            deepl_source = Config.DEEPL_LANG_CODES.get(source_lang, source_lang.upper())
+            deepl_source = Config.DEEPL_SOURCE_LANG_CODES.get(source_lang, source_lang.upper())
 
             loop = asyncio.get_event_loop()
             result = await loop.run_in_executor(
