@@ -33,25 +33,15 @@ class Config:
     }
 
     # ── Translation Routing ───────────────────────────────────────────────────
-    # Korean uses Papago — unmatched Korean accuracy
-    # Everything else uses DeepL — best for Romance languages (ES, FR, PT)
-    PAPAGO_LANGUAGES = {"ko"}
+    # All languages route through DeepL.
 
     # DeepL language codes (some differ from ISO 639-1)
     DEEPL_LANG_CODES = {
         "en": "EN-US",
+        "ko": "KO",
         "es": "ES",
         "fr": "FR",
         "pt": "PT-BR",   # Change to PT-PT for European Portuguese if needed
-    }
-
-    # Papago language codes
-    PAPAGO_LANG_CODES = {
-        "en": "en",
-        "ko": "ko",
-        "es": "es",
-        "fr": "fr",
-        "pt": "pt",
     }
 
     # ── Channel Auto-Detection Keywords ──────────────────────────────────────

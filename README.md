@@ -4,9 +4,7 @@ Automatically translates messages across language-specific channels in real time
 
 **Supported languages:** English · Korean · Spanish · French · Portuguese
 
-**Translation engines:**
-- 🇰🇷 **Korean** (any direction) → **Papago** (Naver) — best-in-class Korean accuracy
-- 🇪🇸🇫🇷🇧🇷 **All other pairs** → **DeepL** — best quality for Romance languages
+**Translation engine:** [DeepL](https://www.deepl.com/pro-api) — all language pairs
 
 ---
 
@@ -15,7 +13,7 @@ Automatically translates messages across language-specific channels in real time
 ```
 discord-translator-bot/
 ├── bot.py               # Main bot — Discord client, events, commands
-├── translator.py        # Translation routing (Papago / DeepL)
+├── translator.py        # Translation service (DeepL)
 ├── channel_manager.py   # Channel registry with JSON persistence
 ├── config.py            # Languages, colors, channel keywords
 ├── requirements.txt     # Python dependencies
@@ -47,7 +45,6 @@ pip install -r requirements.txt
 |-----|----------------|-----------|
 | `DISCORD_TOKEN` | [discord.com/developers](https://discord.com/developers/applications) | Free |
 | `DEEPL_API_KEY` | [deepl.com/pro-api](https://www.deepl.com/pro-api) | 500K chars/month |
-| `PAPAGO_CLIENT_ID` + `PAPAGO_CLIENT_SECRET` | [ncloud.com](https://www.ncloud.com/) → AI Services → Papago Translation | 10K chars/day |
 
 ### 4. Configure Environment
 
@@ -187,7 +184,7 @@ User types in #en-general
          │
          ▼
   For each other language:
-    ┌─ Korean? ──────► Papago API ──► Post to #ko-general
+    ├─ Korean? ──────► DeepL API ───► Post to #ko-general
     ├─ Spanish? ─────► DeepL API ───► Post to #es-general
     ├─ French? ──────► DeepL API ───► Post to #fr-general
     └─ Portuguese? ──► DeepL API ───► Post to #pt-general
@@ -208,7 +205,7 @@ All translations run **concurrently** — no sequential delays.
 ```python
 LANGUAGE_NAMES = {
     ...
-    "ja": "Japanese",    # Add here
+    "ja": "Japanese",
 }
 
 LANGUAGE_FLAGS = {
@@ -218,7 +215,7 @@ LANGUAGE_FLAGS = {
 
 DEEPL_LANG_CODES = {
     ...
-    "ja": "JA",          # Use Papago code if adding a Papago language
+    "ja": "JA",
 }
 
 CHANNEL_KEYWORDS = {
@@ -232,24 +229,6 @@ CHANNEL_KEYWORDS = {
 
 2. Create the Discord channels and category
 3. Run `!tsetup` — done.
-
----
-
-## 🔄 Switching to DeepL for Korean (Future)
-
-If you ever want to swap Papago out for DeepL on Korean:
-
-In `config.py`:
-
-```python
-# Before:
-PAPAGO_LANGUAGES = {"ko"}
-
-# After (DeepL handles everything):
-PAPAGO_LANGUAGES = set()   # Empty — DeepL handles all pairs
-```
-
-That's the only change needed. The abstraction layer handles the rest.
 
 ---
 
@@ -303,7 +282,6 @@ sudo journalctl -u translator-bot -f   # View logs
 |-------|-----|
 | Bot online but not translating | Run `!tstatus` — channels may not be registered. Run `!tsetup`. |
 | Messages appear as bot, not user | Bot needs `Manage Webhooks` permission in the channel. |
-| Korean not translating | Check `PAPAGO_CLIENT_ID` and `PAPAGO_CLIENT_SECRET` in `.env`. |
-| Other languages not translating | Check `DEEPL_API_KEY` in `.env`. Verify free tier hasn't been exhausted. |
+| Translations failing | Check `DEEPL_API_KEY` in `.env`. Verify free tier hasn't been exhausted. |
 | Channels not auto-detected | Channel names must match patterns in `config.py → CHANNEL_KEYWORDS`. Use `!tregister` to register manually. |
 | Translation loop | Bot ignores all messages from bots — should not occur. Check bot role has `bot` tag. |
