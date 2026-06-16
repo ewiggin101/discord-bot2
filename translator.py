@@ -2,7 +2,6 @@
 Translation Service — all languages handled by DeepL.
 """
 
-import os
 import asyncio
 import logging
 import deepl
@@ -13,12 +12,8 @@ log = logging.getLogger("TranslationService")
 
 class TranslationService:
 
-    def __init__(self):
-        self.deepl_key = os.getenv("DEEPL_API_KEY")
-        self.deepl_client = deepl.Translator(self.deepl_key) if self.deepl_key else None
-
-        if not self.deepl_key:
-            log.warning("DEEPL_API_KEY not set — translations will fail")
+    def __init__(self, deepl_api_key: str):
+        self.deepl_client = deepl.Translator(deepl_api_key)
 
     # ── Public API ────────────────────────────────────────────────────────────
 
