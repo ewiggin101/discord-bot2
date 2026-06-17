@@ -1,9 +1,9 @@
 """
-Proton Pass secret retrieval for discord-bot2.
+pass-cli secret retrieval for discord-bot2.
 
-Secrets are stored in Proton Pass vault "APIs" as individual items.
+Secrets are stored in the "APIs" vault as individual items.
 Fetched with:
-    proton-pass item get --vault APIs --name <item> --field password
+    pass-cli item view --vault-name APIs --item-title <item> --field "API Key"
 """
 
 import subprocess
@@ -20,27 +20,27 @@ _FIELDS = {
 
 
 def get_secret(field: str) -> str:
-    """Fetch the password field from a named Proton Pass item. Raises on failure."""
+    """Fetch the API Key field from a named pass-cli item. Raises on failure."""
     item = _FIELDS[field]
     try:
         result = subprocess.run(
-            ["proton-pass", "item", "get", "--vault", VAULT, "--name", item, "--field", "password"],
+            ["pass-cli", "item", "view", "--vault-name", VAULT, "--item-title", item, "--field", "API Key"],
             capture_output=True,
             text=True,
             check=True,
         )
         value = result.stdout.strip()
         if not value:
-            raise ValueError(f"Proton Pass returned empty value for '{item}'")
+            raise ValueError(f"pass-cli returned empty value for '{item}'")
         return value
     except subprocess.CalledProcessError as e:
         raise RuntimeError(
-            f"proton-pass failed for '{item}': {e.stderr.strip()}"
+            f"pass-cli failed for '{item}': {e.stderr.strip()}"
         ) from e
 
 
 def load_secrets() -> dict[str, str]:
-    """Load all required secrets from Proton Pass. Raises if any are missing."""
+    """Load all required secrets from pass-cli. Raises if any are missing."""
     secrets: dict[str, str] = {}
     errors: list[str] = []
 
@@ -54,7 +54,7 @@ def load_secrets() -> dict[str, str]:
 
     if errors:
         raise RuntimeError(
-            "Failed to load one or more secrets from Proton Pass:\n" + "\n".join(errors)
+            "Failed to load one or more secrets from pass-cli:\n" + "\n".join(errors)
         )
 
     return secrets
