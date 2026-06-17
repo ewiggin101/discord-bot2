@@ -8,7 +8,7 @@ from discord.ext import commands
 import asyncio
 import logging
 from config import Config
-from secrets import load_secrets
+from proton_secrets import load_secrets
 from translator import TranslationService
 from channel_manager import ChannelManager
 

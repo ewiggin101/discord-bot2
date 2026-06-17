@@ -14,7 +14,7 @@ log = logging.getLogger("secrets")
 VAULT = "APIs"
 
 _FIELDS = {
-    "DISCORD_TOKEN": "Bot2- Discord Token",
+    "DISCORD_TOKEN": "Bot2 - Discord Token",
     "DEEPL_API_KEY": "Bot2 - DeepL API Key",
 }
 
